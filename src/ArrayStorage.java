@@ -4,31 +4,35 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[15];
+    Resume[] storage = new Resume[10000];
+    int size = size();
 
     void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size - 1, null);
+        size = 0;
     }
 
     void save(Resume r) {
-        for (Resume resume : storage) {
-            if (r.equals(resume)) {
-                System.out.println("Резюме с таким ID уже существует");
-            } else {
-                storage[size()] = r;
+        if (size == 0) {
+            storage[size] = r;
+            size++;
+        } else {
+            for (int i = 0; i < size; ) {
+                if (r.uuid.equals(storage[i].uuid)) {
+                    System.out.println("Резюме с таким ID уже существует");
+                } else {
+                    storage[size] = r;
+                    size++;
+                }
                 break;
-
             }
         }
     }
 
     Resume get(String uuid) {
-        System.out.println("uuid " + uuid);
-        for (Resume resume : storage) {
-            if (resume != null) {
-                if (uuid.contains(resume.uuid)) {
-                    return resume;
-                }
+        for (int i = 0; i < size; i++) {
+            if (uuid.contains(storage[i].uuid)) {
+                return storage[i];
             }
         }
         System.out.println("Резюме с таким ID не существует");
@@ -36,14 +40,13 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] != null) {
-                if (uuid.equals(storage[i].uuid)) {
-                    storage[i] = null;
-                    for (int x = i + 1; x < storage.length - 1; x++) {
-                        storage[x - 1] = storage[x];
-                        storage[x] = null;
-                    }
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].uuid)) {
+                storage[i] = null;
+                size--;
+                for (int j = i + 1; j < storage.length - 1; j++) {
+                    storage[j - 1] = storage[j];
+                    storage[j] = null;
                 }
             }
         }
