@@ -14,17 +14,17 @@ public class ArrayStorage {
 
     void save(Resume r) {
         boolean dublicate = false;
-            for (int i = 0; i < size; i++) {
-                if (r.uuid.equals(storage[i].uuid)) {
-                    System.out.println("Резюме с таким ID уже существует");
-                    dublicate = true;
-                    break;
-                }
+        for (int i = 0; i < size; i++) {
+            if (r.uuid.equals(storage[i].uuid)) {
+                System.out.println("Резюме с таким ID уже существует");
+                dublicate = true;
+                break;
             }
-            if (!dublicate) {
-                storage[size] = r;
-                size++;
-            }
+        }
+        if (!dublicate) {
+            storage[size] = r;
+            size++;
+        }
     }
 
 
