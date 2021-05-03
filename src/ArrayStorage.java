@@ -5,7 +5,7 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-    int size = size();
+    int size = 0;
 
     void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -13,15 +13,16 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        boolean dublicate = false;
+        boolean duplicate = false;
         for (int i = 0; i < size; i++) {
             if (r.uuid.equals(storage[i].uuid)) {
                 System.out.println("Резюме с таким ID уже существует");
-                dublicate = true;
+                duplicate = true;
                 break;
             }
         }
-        if (!dublicate) {
+
+        if (!duplicate) {
             storage[size] = r;
             size++;
         }
@@ -40,12 +41,9 @@ public class ArrayStorage {
     void delete(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].uuid)) {
-                storage[i] = null;
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
                 size--;
-                for (int j = i + 1; j < storage.length - 1; j++) {
-                    storage[j - 1] = storage[j];
-                    storage[j] = null;
-                }
             }
         }
     }
@@ -58,12 +56,6 @@ public class ArrayStorage {
     }
 
     int size() {
-        int sz = 0;
-        for (Resume resume : storage) {
-            if (resume != null) {
-                sz++;
-            }
-        }
-        return sz;
+        return size;
     }
 }
