@@ -13,19 +13,17 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (size == 0) {
-            storage[size] = r;
-            size++;
-        } else {
-            for (int i = 0; i < size; ) {
-                if (r.uuid.equals(storage[i].uuid)) {
-                    System.out.println("Резюме с таким ID уже существует");
-                } else {
-                    storage[size] = r;
-                    size++;
-                }
+        boolean dublicate = false;
+        for (int i = 0; i < size; i++) {
+            if (r.uuid.equals(storage[i].uuid)) {
+                System.out.println("Резюме с таким ID уже существует");
+                dublicate = true;
                 break;
             }
+        }
+        if (!dublicate) {
+            storage[size] = r;
+            size++;
         }
     }
 
