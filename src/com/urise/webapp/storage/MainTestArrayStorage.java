@@ -1,3 +1,7 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
+
 /**
  * Test for your ArrayStorage implementation
  */
@@ -11,6 +15,8 @@ public class MainTestArrayStorage {
         r2.uuid = "uuid2";
         Resume r3 = new Resume();
         r3.uuid = "uuid3";
+        Resume r4 = new Resume();
+        r4.uuid = "uuid4";
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
@@ -18,8 +24,18 @@ public class MainTestArrayStorage {
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.uuid));
         System.out.println("Size: " + ARRAY_STORAGE.size());
+        ARRAY_STORAGE.delete(r4.uuid);
+        printAll();
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+        printAll();
+        System.out.print("\nUpdate resume: uuid3 no uuid4 \n");
+        ARRAY_STORAGE.update(r4, "uuid3");
+        printAll();
+        System.out.print("\nUpdate resume: uuid2 no uuid3 \n");
+
+        ARRAY_STORAGE.update(r1, "uuid2");
+        System.out.print("\n");
 
         printAll();
         ARRAY_STORAGE.delete(r1.uuid);

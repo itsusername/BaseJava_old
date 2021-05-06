@@ -1,3 +1,6 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,15 +16,24 @@ public class MainArray {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | size | save uuid | delete uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | size | save uuid | delete uuid | get uuid | update uuid newUuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
-            if (params.length < 1 || params.length > 2) {
+            if (params.length < 1 || params.length > 3) {
+                System.out.println("Неверная команда.");
+                continue;
+            }
+            if (params.length > 3 && params[2] == null) {
                 System.out.println("Неверная команда.");
                 continue;
             }
             String uuid = null;
             if (params.length == 2) {
                 uuid = params[1].intern();
+            }
+            String nuuid = null;
+            if (params.length == 3) {
+                uuid = params[1].intern();
+                nuuid = params[2].intern();
             }
             switch (params[0]) {
                 case "list":
@@ -34,6 +46,12 @@ public class MainArray {
                     r = new Resume();
                     r.uuid = uuid;
                     ARRAY_STORAGE.save(r);
+                    printAll();
+                    break;
+                case "update":
+                    r = new Resume();
+                    r.uuid = nuuid;
+                    ARRAY_STORAGE.update(r, uuid);
                     printAll();
                     break;
                 case "delete":
