@@ -25,12 +25,19 @@ public class MainTestArrayStorage {
         r5.setUuid("uuid5");
         Resume r6 = new Resume();
         r6.setUuid("uuid6");
+        Resume r7 = new Resume();
+        r7.setUuid("uuid7");
+        Resume r8 = new Resume();
+        r8.setUuid("uuid8");
 
-        ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
+        ARRAY_STORAGE.save(r1);
+
         SORTED_ARRAY_STORAGE.save(r5);
         SORTED_ARRAY_STORAGE.save(r6);
+        SORTED_ARRAY_STORAGE.save(r8);
+        SORTED_ARRAY_STORAGE.save(r7);
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Get r5: " + SORTED_ARRAY_STORAGE.get(r5.getUuid()));
@@ -50,6 +57,7 @@ public class MainTestArrayStorage {
         SORTED_ARRAY_STORAGE.update(r4);
         System.out.print("\n");
 
+        System.out.print("\nТестим сортед \n");
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
