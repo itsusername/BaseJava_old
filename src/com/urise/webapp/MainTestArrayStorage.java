@@ -58,6 +58,11 @@ public class MainTestArrayStorage {
         System.out.print("\n");
 
         System.out.print("\nТестим сортед \n");
+        printSAll();
+        SORTED_ARRAY_STORAGE.delete(r5.getUuid());
+        printSAll();
+
+
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
@@ -70,6 +75,13 @@ public class MainTestArrayStorage {
     static void printAll() {
         System.out.println("\nGet All");
         for (Resume r : ARRAY_STORAGE.getAll()) {
+            System.out.println(r);
+        }
+    }
+
+    static void printSAll() {
+        System.out.println("\nGet All");
+        for (Resume r : SORTED_ARRAY_STORAGE.getAll()) {
             System.out.println(r);
         }
     }
