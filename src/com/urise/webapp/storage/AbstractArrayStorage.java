@@ -44,7 +44,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void save(Resume resume) {
         String uuid = resume.getUuid();
         int index = getIndex(uuid);
-        if (index != -1) {
+        if (index >= 0) {
             System.out.println("Резюме с таким ID: " + uuid + " уже существует");
         } else if (size == STORAGE_LIMIT) {
             System.out.println("БД резюме переполнено");
@@ -56,7 +56,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public final void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index != -1) {
+        if (index < -1) {
             deleteResume(index);
             storage[size - 1] = null;
             size--;
